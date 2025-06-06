@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {RgMainPageComponent} from '../../../ng-redgrape-ui/src/lib/components/rg-main-page/rg-main-page.component';
 import {MenuItem} from '../../../ng-redgrape-ui/src/lib/models/menu-item';
+import {RgLoginComponent} from '../../../ng-redgrape-ui/src/lib/components/rg-login/rg-login.component';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RgMainPageComponent],
+  imports: [RgLoginComponent,RgMainPageComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -83,5 +84,9 @@ menuItems: MenuItem[] = [];
         ]
       }
     ];
+  }
+
+  do_login($event: any) {
+    console.log(JSON.stringify($event));
   }
 }
