@@ -1,0 +1,158 @@
+// rg-side-menu.component.scss
+.side-menu-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 250px;
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  direction: rtl;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+
+  &.collapsed {
+    right: -250px;
+  }
+
+  &.mobile-view {
+    right: -250px;
+    &.collapsed {
+      right: 0;
+    }
+    .close-menu-btn {
+      display: block;
+    }
+  }
+  .close-menu-btn {
+    display: none;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    background: none;
+    border: none;
+    color: #ecf0f1;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1001;
+    padding: 5px;
+  }
+
+  .side-menu-scroll {
+    height: 100%;
+    overflow-y: auto;
+    padding-top: 60px;
+  }
+
+  .nav {
+    padding: 10px 0;
+
+    .nav-item {
+      position: relative;
+
+      .nav-link {
+        color: #ecf0f1;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+          background-color: #34495e;
+        }
+
+        .bi {
+          margin-left: 10px;
+          font-size: 1.1rem;
+        }
+
+        .menu-text {
+          flex-grow: 1;
+          text-align: right;
+        }
+
+        .submenu-indicator {
+          transition: transform 0.3s;
+          margin-left: 5px;
+
+          &.rotated {
+            transform: rotate(-90deg);
+          }
+        }
+      }
+    }
+
+    .sub-menu {
+      background-color: #34495e;
+      padding-right: 0;
+      list-style: none;
+
+      li {
+        a {
+          padding: 10px 20px 10px 40px;
+          display: block;
+          color: #bdc3c7;
+
+          &:hover {
+            background-color: #3d566e;
+            color: #ecf0f1;
+          }
+        }
+      }
+    }
+  }
+  .side-menu-scroll {
+    height: calc(100% - 60px); // Account for potential close button
+    overflow-y: auto;
+    padding-top: 60px;
+    padding-bottom: 20px;
+    scrollbar-width: thin; // For Firefox
+    scrollbar-color: #4a627a #2c3e50; // For Firefox
+
+    /* Custom scrollbar for WebKit browsers */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #2c3e50;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #4a627a;
+      border-radius: 3px;
+      border: 1px solid #2c3e50;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: #5d7a97;
+    }
+
+    // Ensure scrollbar appears on the left in RTL
+    direction: ltr;
+    margin-left: -20px;
+    padding-left: 20px;
+
+    // Reset direction for content
+    .nav {
+      direction: rtl;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .side-menu-container {
+    right: -250px;
+
+    &.mobile-view {
+      right: -250px;
+
+      &.collapsed {
+        right: 0;
+      }
+    }
+  }
+}

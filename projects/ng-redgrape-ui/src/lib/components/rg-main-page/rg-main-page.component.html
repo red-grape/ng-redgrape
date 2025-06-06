@@ -1,0 +1,31 @@
+<div class="main-container" [class.menu-collapsed]="sideMenuCollapsed" [class.mobile-view]="mobileView">
+  <rg-side-menu
+    [collapsed]="sideMenuCollapsed"
+    [mobileView]="mobileView"
+    (onClose)="toggleSideMenu()"
+    [menuItems]="menuItems"
+    (menuItemClick)="menuItemClicked($event)"
+  >
+  </rg-side-menu>
+
+  <div class="main-content">
+    <div class="toolbar">
+      <button class="btn btn-light menu-toggle" (click)="toggleSideMenu()">
+        <i class="bi bi-list"></i>
+      </button>
+      <h4 class="toolbar-title">{{ title }}</h4>
+      <div class="toolbar-actions">
+        <button class="btn btn-light">
+          <i class="bi bi-bell"></i>
+        </button>
+        <button class="btn btn-light">
+          <i class="bi bi-person-circle"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="content-container">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

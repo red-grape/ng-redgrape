@@ -1,0 +1,22 @@
+<div class="side-menu-container" [class.collapsed]="collapsed" [class.mobile-view]="mobileView">
+  <button class="close-menu-btn" *ngIf="mobileView" (click)="onClose.emit()">
+    <i class="bi bi-x-lg"></i>
+  </button>
+  <div class="side-menu-scroll">
+    <ul class="nav flex-column">
+      <li class="nav-item" *ngFor="let item of menuItems">
+        <a class="nav-link" (click)="toggleSubMenu(item)">
+          <i class="bi" [class]="item.icon"></i>
+          <span class="menu-text">{{ item.text }}</span>
+          <i class="bi bi-chevron-left submenu-indicator" *ngIf="item.children?.length"
+             [class.rotated]="item.expanded"></i>
+        </a>
+        <ul class="sub-menu" *ngIf="item.children?.length && item.expanded">
+          <li *ngFor="let child of item.children">
+            <a class="nav-link" (click)="toggleSubMenu(child)">{{ child.text }}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
