@@ -3,23 +3,37 @@ import { RouterOutlet } from '@angular/router';
 import {RgMainPageComponent} from '../../../ng-redgrape-ui/src/lib/components/rg-main-page/rg-main-page.component';
 import {MenuItem} from '../../../ng-redgrape-ui/src/lib/models/menu-item';
 import {RgLoginComponent} from '../../../ng-redgrape-ui/src/lib/components/rg-login/rg-login.component';
+import {RgDataGridComponent} from '../../../ng-redgrape-ui/src/lib/components/rg-data-grid/rg-data-grid.component';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RgLoginComponent,RgMainPageComponent],
+  imports: [RgDataGridComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
 
 menuItems: MenuItem[] = [];
+  public mockData: { ID: number; Name: string; Email: string; }[] | [] = [];
 
   click($event: { data: MenuItem; }) {
     console.log($event);
   }
 
   ngOnInit(): void {
+
+    this.mockData = Array.from({ length: 100 }, (_, i) => ({
+      ID: i + 1,
+      Name: `User ${i + 1}`,
+      Email: `user both Bootstrap's JavaScript and Popper.js ${i + 1}@example.com`,
+      ID1: i + 1,
+      Name1: `User ${i + 1}`,
+      Email1: `user both Bootstrap's JavaScript and Popper.js ${i + 1}@example.com`,
+      ID2: i + 1,
+      Name2: `User ${i + 1}`,
+      Email2: `user both Bootstrap's JavaScript and Popper.js ${i + 1}@example.com`,
+    }));
 
     this.menuItems  = [
       {

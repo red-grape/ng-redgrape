@@ -1,0 +1,41 @@
+<div class="rg-grid-container" [ngClass]="{ 'h-scroll': enableHScroll, 'no-h-scroll': !enableHScroll }">
+  <div class="rg-grid-table-wrapper">
+    <table class="table table-bordered table-hover table-sm">
+      <thead class="sticky-header table-light">
+      <tr >
+        <th *ngFor="let col of columns" >{{ col }}</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of pagedData">
+        <td *ngFor="let col of columns">{{ row[col] }}</td>
+        <td class="sticky-col" style="white-space: nowrap; width: 1%;">
+          <button type="button" class="btn btn-outline-danger btn-sm mx-2"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  data-bs-title="حذف سطر جاری">
+            <i class="bi bi-trash "></i>
+          </button>
+          <button type="button" class="btn btn-outline-secondary btn-sm"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  data-bs-title="اصلاح سطر جاری">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination-controls d-flex justify-content-center align-items-center mt-2 gap-3">
+    <button class="btn btn-outline-secondary" (click)="prevPage()" [disabled]="currentPage === 1">
+      <i class="bi bi-arrow-right-circle"></i>
+    </button>
+    <span> {{ currentPage }} از {{ pageCount }}</span>
+    <button class="btn btn-outline-secondary" (click)="nextPage()" [disabled]="currentPage === pageCount">
+      <i class="bi bi-arrow-left-circle"></i>
+    </button>
+  </div>
+</div>
