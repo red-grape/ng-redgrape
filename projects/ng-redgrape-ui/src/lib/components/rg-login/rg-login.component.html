@@ -1,0 +1,29 @@
+<div class="login-container text-end">
+  <div class="card shadow-lg rounded-4">
+    <div class="card-body">
+      <h3 class="card-title mb-4 text-center">ورود به حساب</h3>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3 input-group">
+          <label for="email" class="form-label text-start w-100">نام کاربری</label>
+          <span class="input-group-text" id="basic-addon1">
+            <i class="bi bi-person"></i>
+          </span>
+          <input type="text" id="email" class="form-control" formControlName="user" placeholder="نام کاربری خود را وارد کنید" />
+        </div>
+
+        <div class="mb-3 input-group">
+          <label for="password" class="form-label text-start w-100">رمز عبور</label>
+          <span class="input-group-text" id="basic-addon1">
+            <i class="bi bi-key"></i>
+          </span>
+          <input type="password" id="password" class="form-control" formControlName="password" placeholder="رمز عبور" />
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mt-4" [disabled]="loginForm.invalid">
+          ورود
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
