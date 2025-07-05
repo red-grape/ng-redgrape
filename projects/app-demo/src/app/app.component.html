@@ -1,15 +1,9 @@
-<!--<rg-main-page [menuItems]="menuItems" (menuItemClick)="click($event)">-->
-<!--  <div class="card">-->
-<!--    <div class="card-body">-->
-<!--      <h5 class="card-title">Welcome to your application</h5>-->
-<!--      <p class="card-text">This is the main content area where your application content will appear.</p>-->
-
-<!--    </div>-->
-<!--  </div>-->
-<!--</rg-main-page>-->
-
-<!--<rg-login (login)="do_login($event)" ></rg-login>-->
+<rg-main-page [menuItems]="menuItems" (menuItemClick)="click($event)">
+  <div class="card">
+    <div class="card-body mt-3">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</rg-main-page>
 
 
-<!--<rg-data-grid [columns]="['ID', 'Name', 'Email']" [data]="mockData"></rg-data-grid>-->
-<rg-data-grid [data]="mockData" [columns]="['ID', 'Name', 'Email','ID1', 'Name1', 'Email1','ID2', 'Name2', 'Email2']" [enableHScroll]="true"></rg-data-grid>
