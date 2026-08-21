@@ -1,15 +1,12 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import { NgForOf, NgIf} from '@angular/common';
+
 import {MenuItem} from '../../models/menu-item';
 
 
 
 @Component({
   selector: 'rg-side-menu',
-  imports: [
-    NgForOf,
-    NgIf
-  ],
+  imports: [],
   templateUrl: './rg-side-menu.component.html',
   styleUrl: './rg-side-menu.component.scss'
 })

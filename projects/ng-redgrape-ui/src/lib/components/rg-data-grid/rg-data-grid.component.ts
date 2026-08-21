@@ -1,12 +1,11 @@
 import {Component, Input} from '@angular/core';
-import {NgClass, NgForOf} from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'rg-data-grid',
   imports: [
-    NgForOf,
     NgClass
-  ],
+],
   templateUrl: './rg-data-grid.component.html',
   styleUrl: './rg-data-grid.component.scss'
 })
