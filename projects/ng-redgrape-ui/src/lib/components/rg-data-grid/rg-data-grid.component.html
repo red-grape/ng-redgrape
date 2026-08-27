@@ -2,29 +2,35 @@
   <div class="rg-grid-table-wrapper">
     <table class="table table-bordered table-hover table-sm">
       <thead class="sticky-header table-light">
-      <tr >
-        <th *ngFor="let col of columns" >{{ col }}</th>
-        <th></th>
-      </tr>
+        <tr >
+          @for (col of columns; track col) {
+            <th >{{ col }}</th>
+          }
+          <th></th>
+        </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let row of pagedData">
-        <td *ngFor="let col of columns">{{ row[col] }}</td>
-        <td class="sticky-col" style="white-space: nowrap; width: 1%;">
-          <button type="button" class="btn btn-outline-danger btn-sm mx-2"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="bottom"
-                  data-bs-title="حذف سطر جاری">
-            <i class="bi bi-trash "></i>
-          </button>
-          <button type="button" class="btn btn-outline-secondary btn-sm"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="bottom"
-                  data-bs-title="اصلاح سطر جاری">
-            <i class="bi bi-pencil-square"></i>
-          </button>
-        </td>
-      </tr>
+        @for (row of pagedData; track row) {
+          <tr>
+            @for (col of columns; track col) {
+              <td>{{ row[col] }}</td>
+            }
+            <td class="sticky-col" style="white-space: nowrap; width: 1%;">
+              <button type="button" class="btn btn-outline-danger btn-sm mx-2"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                data-bs-title="حذف سطر جاری">
+                <i class="bi bi-trash "></i>
+              </button>
+              <button type="button" class="btn btn-outline-secondary btn-sm"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                data-bs-title="اصلاح سطر جاری">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>
