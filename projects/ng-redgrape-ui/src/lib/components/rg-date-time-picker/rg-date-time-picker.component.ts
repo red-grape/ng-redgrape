@@ -147,6 +147,7 @@ export class RgDateTimePickerComponent implements ControlValueAccessor {
   }
 
   selectDay(day: CalendarCell): void {
+    if (this.disabled) return;
     this.selectedDate = { year: day.year, month: day.month, day: day.day };
     this.viewDate = { ...this.selectedDate };
     this.commit();
@@ -270,37 +271,51 @@ export class RgDateTimePickerComponent implements ControlValueAccessor {
   }
 
   private jalaliToGregorian(jy: number, jm: number, jd: number): Date {
-    const gy = jy <= 979 ? 621 : 1600;
-    const jy2 = jy - (gy === 621 ? 0 : 979);
-    let days = 365 * jy2 + Math.floor(jy2 / 33) * 8 + Math.floor((jy2 % 33 + 3) / 4) + 78 + jd;
+    let days = 365 * (jy - 979) + Math.floor((jy - 979) / 33) * 8 +
+      Math.floor(((jy - 979) % 33 + 3) / 4) + 81 + jd;
     days += jm < 7 ? (jm - 1) * 31 : (jm - 7) * 30 + 186;
-    let year = gy + 4 * Math.floor(days / 1461);
+    let year = 1600 + 400 * Math.floor(days / 146097);
+    days %= 146097;
+    if (days > 36524) {
+      year += 100 * Math.floor(--days / 36524);
+      days %= 36524;
+      if (days >= 365) days++;
+    }
+    year += 4 * Math.floor(days / 1461);
     days %= 1461;
     if (days > 365) {
       year += Math.floor((days - 1) / 365);
       days = (days - 1) % 365;
     }
-    const month = days < 186 ? 1 + Math.floor(days / 31) : 7 + Math.floor((days - 186) / 30);
-    const day = 1 + (days < 186 ? days % 31 : (days - 186) % 30);
+    const dayOfYear = days + 1;
+    const month = dayOfYear <= 31 ? 1 : dayOfYear <= 62 ? 2 : dayOfYear <= 93 ? 3 :
+      dayOfYear <= 124 ? 4 : dayOfYear <= 155 ? 5 : dayOfYear <= 186 ? 6 :
+      dayOfYear <= 216 ? 7 : dayOfYear <= 246 ? 8 : dayOfYear <= 276 ? 9 :
+      dayOfYear <= 306 ? 10 : dayOfYear <= 336 ? 11 : 12;
+    const day = dayOfYear - (month <= 6 ? (month - 1) * 31 : 186 + (month - 7) * 30);
     return new Date(Date.UTC(year, month - 1, day));
   }
 
   private gregorianToJalali(date: Date): CalendarDate {
-    const gy = date.getUTCFullYear();
-    const gm = date.getUTCMonth() + 1;
-    const gd = date.getUTCDate();
-    const gdm = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    let gy2 = gy - 1600;
-    let days = 365 * gy2 + Math.floor((gy2 + 3) / 4) - Math.floor((gy2 + 99) / 100) +
-      Math.floor((gy2 + 399) / 400) - 80 + gd;
-    for (let i = 1; i < gm; i++) days += gdm[i];
-    if (gm > 2 && (gy % 4 === 0 && (gy % 100 !== 0 || gy % 400 === 0))) days++;
+    const gy = date.getUTCFullYear() - 1600;
+    const gm = date.getUTCMonth();
+    const gd = date.getUTCDate() - 1;
+    const gdm = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    let days = 365 * gy + Math.floor((gy + 3) / 4) - Math.floor((gy + 99) / 100) +
+      Math.floor((gy + 399) / 400);
+    for (let i = 0; i < gm; i++) days += gdm[i];
+    if (gm > 1 && ((gy + 1600) % 4 === 0 && ((gy + 1600) % 100 !== 0 || (gy + 1600) % 400 === 0))) days++;
+    days += gd;
+    days -= 79;
     let jy = 979 + 33 * Math.floor(days / 12053);
     days %= 12053;
     jy += 4 * Math.floor(days / 1461);
     days %= 1461;
-    if (days > 365) jy += Math.floor((days - 1) / 365);
-    const remainder = (days - 1) % 365;
+    if (days > 365) {
+      jy += Math.floor((days - 1) / 365);
+      days = (days - 1) % 365;
+    }
+    const remainder = days;
     const jm = remainder < 186 ? 1 + Math.floor(remainder / 31) : 7 + Math.floor((remainder - 186) / 30);
     return { year: jy, month: jm, day: 1 + (remainder < 186 ? remainder % 31 : (remainder - 186) % 30) };
   }
