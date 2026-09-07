@@ -1,0 +1,126 @@
+<section class="picker-demo" dir="rtl">
+  <div class="mb-4">
+    <h2 class="mb-2">انتخاب‌گر تاریخ و ساعت</h2>
+    <p class="text-secondary mb-0">
+      نمونه‌های کامل کنترل <code>rg-date-time-picker</code> برای تاریخ میلادی و شمسی،
+      انتخاب تاریخ و تاریخ‌وساعت، ورود دستی و فرم واکنش‌گرا.
+    </p>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">تاریخ میلادی (LTR)</h5>
+            <p class="card-text text-secondary small">فقط تاریخ؛ مقدار فرم به صورت ISO ذخیره می‌شود.</p>
+            <rg-date-time-picker
+              formControlName="gregorianDate"
+              label="تاریخ میلادی"
+              direction="ltr"
+              mode="date"
+              placeholder="YYYY-MM-DD"
+              (valueChange)="onValueChange($event)">
+            </rg-date-time-picker>
+            <div class="value-preview mt-3">
+              <span>مقدار ISO:</span>
+              <code>{{ form.controls.gregorianDate.value || '—' }}</code>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">تاریخ و ساعت میلادی (LTR)</h5>
+            <p class="card-text text-secondary small">انتخاب ساعت یا ورود دستی با فرمت YYYY-MM-DD HH:mm.</p>
+            <rg-date-time-picker
+              formControlName="gregorianDateTime"
+              label="زمان تحویل"
+              direction="ltr"
+              mode="datetime"
+              placeholder="YYYY-MM-DD HH:mm"
+              (valueChange)="onValueChange($event)">
+            </rg-date-time-picker>
+            <div class="value-preview mt-3">
+              <span>مقدار ISO:</span>
+              <code>{{ form.controls.gregorianDateTime.value || '—' }}</code>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">تاریخ شمسی (RTL)</h5>
+            <p class="card-text text-secondary small">تقویم شمسی در رابط راست‌به‌چپ؛ مقدار خروجی همچنان ISO میلادی است.</p>
+            <rg-date-time-picker
+              formControlName="shamsiDate"
+              label="تاریخ شمسی"
+              direction="rtl"
+              mode="date"
+              placeholder="YYYY/MM/DD"
+              (valueChange)="onValueChange($event)">
+            </rg-date-time-picker>
+            <div class="value-preview mt-3">
+              <span>نمایش:</span>
+              <code>{{ form.controls.shamsiDate.value || '—' }}</code>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">تاریخ و ساعت شمسی (RTL)</h5>
+            <p class="card-text text-secondary small">مناسب فرم‌های فارسی با انتخاب تاریخ، ساعت و ورود دستی.</p>
+            <rg-date-time-picker
+              formControlName="shamsiDateTime"
+              label="تاریخ و ساعت ثبت"
+              direction="rtl"
+              mode="datetime"
+              placeholder="YYYY/MM/DD HH:mm"
+              (valueChange)="onValueChange($event)">
+            </rg-date-time-picker>
+            <div class="value-preview mt-3">
+              <span>مقدار ISO:</span>
+              <code>{{ form.controls.shamsiDateTime.value || '—' }}</code>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">کنترل غیرفعال</h5>
+            <p class="card-text text-secondary small">برای نمایش حالت disabled در فرم‌ها.</p>
+            <rg-date-time-picker
+              label="تاریخ غیرقابل ویرایش"
+              direction="rtl"
+              mode="date"
+              [disabled]="true"
+              [placeholder]="'قابل انتخاب نیست'">
+            </rg-date-time-picker>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">آخرین رویداد خروجی</h5>
+            <p class="card-text text-secondary small">رویداد <code>valueChange</code> هر کنترل اینجا نمایش داده می‌شود.</p>
+            <div class="event-output">
+              {{ lastEmittedValue || 'برای مشاهده مقدار، یک تاریخ انتخاب کنید.' }}
+            </div>
+            <button type="button" class="btn btn-outline-secondary mt-3" (click)="reset()">پاک کردن مقادیر فرم</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>

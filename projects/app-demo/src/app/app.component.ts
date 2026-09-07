@@ -56,6 +56,18 @@ menuItems: MenuItem[] = [];
           }
         ]
       },
+      {
+        text: 'انتخاب‌گر تاریخ و ساعت',
+        icon: 'bi-calendar3',
+        expanded: false,
+        children: [
+          {
+            text: 'نمایش همه امکانات',
+            icon: 'bi-calendar3',
+            link: 'date-time-picker/demo'
+          }
+        ]
+      },
     ];
   }
 

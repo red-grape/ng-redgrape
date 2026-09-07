@@ -21,3 +21,31 @@ To use the components properly, you must install and configure Bootstrap in your
  3. Add these attributes to the `<html>` tag in `index.html`.
 	```html
 	<html lang="fa" dir="rtl">
+	```
+
+### Date and time picker
+
+`RgDateTimePickerComponent` is a standalone form control. In LTR mode it displays and accepts Gregorian dates; in RTL mode it displays and accepts Jalali (Shamsi) dates. Form values are emitted as ISO date strings (`YYYY-MM-DD` or `YYYY-MM-DDTHH:mm`).
+
+```ts
+import { RgDateTimePickerComponent } from 'ng-redgrape-ui';
+
+@Component({
+  imports: [ReactiveFormsModule, RgDateTimePickerComponent],
+  // ...
+})
+export class ExampleComponent {
+  form = new FormGroup({
+    dueAt: new FormControl<string | null>(null),
+  });
+}
+```
+
+```html
+<rg-date-time-picker
+  formControlName="dueAt"
+  mode="datetime"
+  direction="rtl"
+  label="تاریخ و ساعت">
+</rg-date-time-picker>
+```
