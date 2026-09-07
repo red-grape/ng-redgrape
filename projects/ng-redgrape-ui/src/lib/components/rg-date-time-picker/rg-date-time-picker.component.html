@@ -1,0 +1,66 @@
+<div class="rg-date-time-picker" [class.rtl]="isRtl" [class.ltr]="!isRtl">
+  @if (label) {
+    <label class="form-label" [for]="id">{{ label }}</label>
+  }
+  <div class="input-group">
+    <input
+      [id]="id"
+      class="form-control"
+      [value]="inputValue"
+      [placeholder]="displayPlaceholder"
+      [disabled]="disabled"
+      [attr.dir]="isRtl ? 'rtl' : 'ltr'"
+      autocomplete="off"
+      (input)="onInput($any($event.target).value)"
+      (blur)="onInputBlur()"
+      (keydown.enter)="isOpen = true"
+    />
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      [disabled]="disabled"
+      aria-label="Open date picker"
+      (click)="toggleCalendar()"
+    >
+      <i class="bi bi-calendar3"></i>
+    </button>
+  </div>
+
+  @if (isOpen) {
+    <div class="calendar-panel card shadow-sm" role="dialog" [attr.dir]="isRtl ? 'rtl' : 'ltr'">
+      <div class="calendar-header">
+        <button type="button" class="btn btn-sm btn-light" (click)="previous()" aria-label="Previous month">
+          <i [class]="isRtl ? 'bi bi-chevron-right' : 'bi bi-chevron-left'"></i>
+        </button>
+        <strong>{{ monthLabel }} {{ yearLabel }}</strong>
+        <button type="button" class="btn btn-sm btn-light" (click)="next()" aria-label="Next month">
+          <i [class]="isRtl ? 'bi bi-chevron-left' : 'bi bi-chevron-right'"></i>
+        </button>
+      </div>
+      <div class="calendar-grid weekdays">
+        @for (weekday of weekdays; track weekday) {
+          <span>{{ weekday }}</span>
+        }
+      </div>
+      <div class="calendar-grid">
+        @for (day of calendarCells; track $index) {
+          <button
+            type="button"
+            class="day"
+            [class.muted]="!day.currentMonth"
+            [class.selected]="selectedDate?.year === day.year && selectedDate?.month === day.month && selectedDate?.day === day.day"
+            (click)="selectDay(day)"
+          >
+            {{ day.day }}
+          </button>
+        }
+      </div>
+      @if (mode === 'datetime') {
+        <div class="time-row">
+          <label class="form-label mb-0" [for]="id + '-time'">Time</label>
+          <input [id]="id + '-time'" class="form-control form-control-sm" type="time" [value]="timeValue" (change)="onTimeChange($any($event.target).value)" />
+        </div>
+      }
+    </div>
+  }
+</div>
